@@ -1,0 +1,5 @@
+#!/bin/sh
+
+python /usr/src/app/manage.py migrate
+python /usr/src/app/manage.py collectstatic --noinput
+/usr/local/bin/gunicorn config.wsgi --reload --timeout 3000 -b 0.0.0.0:8000 --chdir=/usr/src/app

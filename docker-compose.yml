@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+    nginx:
+        image: nginx:latest
+        container_name: nginx_todo_app
+        ports:
+            - 9021:80
+        volumes:
+            - ./src:/usr/src/app
+            - ./nginx:/etc/nginx/conf.d
+        depends_on:
+            - web
+
+    web:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        command: /django_start
+        container_name: django_todo_app
+        depends_on:
+            - db
+        volumes:
+            - ./src:/usr/src/app
+
+    db:
+        image: postgres:latest
+        container_name: postgres_todo_app
+        env_file:
+            - src/.envs/.postgres
+        ports:
+            - 5432:5432

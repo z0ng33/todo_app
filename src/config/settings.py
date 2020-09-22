@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     # Local
+    'tasks',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,8 @@ if DEBUG:
         'SHOW_TOOLBAR_CALLBACK': lambda request: True,
     }
     DEBUG_TOOLBAR_PANELS = PANELS_DEFAULTS + ['debug_toolbar.panels.profiling.ProfilingPanel']
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20
+}
